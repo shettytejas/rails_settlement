@@ -18,7 +18,9 @@ class UsersController < ApplicationController
   set_user only: %i[show] # Internally, it's just a before_action callback, so you can pass options to the callback directly.
   set_user! only: %i[edit] # Using this method with a bang (!) would trigger an ActiveRecord::RecordNotFound Exception.
 
-  ...
+  def show
+    do_something with: user # You will also have an attribute reader with the same name available if the object is found. If not, it'll default to nil (unless a bang method is used, in which case an error is raised!)
+  end
 end
 ```
 
