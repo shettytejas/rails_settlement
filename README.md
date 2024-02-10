@@ -34,6 +34,7 @@ end
 ```
 
 This way you can use any model instead of a `User`. Just follow the naming convention `set_[model_name_in_snake_case]!`.
+
 P.S: This should not work with STI or any Namespaced models. If you have a way to make them work, please raise a pull request!
 
 That's about it!
