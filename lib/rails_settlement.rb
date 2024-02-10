@@ -35,6 +35,6 @@ module RailsSettlement
   end
 end
 
-ActiveSupport.on_load(:action_controller_base) do
+ActiveSupport.on_load(:action_controller) do
   include RailsSettlement
 end

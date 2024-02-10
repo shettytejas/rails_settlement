@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class OverrideController < ApplicationController
+class OverrideController < ActionController::API
   set_user model_key: :name, params_key: :user_name, only: %i[show]
   set_user! model_key: :name, params_key: :user_name, only: %i[edit]
 
