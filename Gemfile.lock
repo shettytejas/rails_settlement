@@ -2,8 +2,8 @@ PATH
   remote: .
   specs:
     rails_settlement (1.0.0)
-      activerecord (~> 5.0)
-      activesupport (~> 5.0)
+      activerecord (>= 5.0)
+      activesupport (>= 5.0)
 
 GEM
   remote: https://rubygems.org/
@@ -193,7 +193,7 @@ PLATFORMS
 
 DEPENDENCIES
   listen
-  rails (~> 5.0)
+  rails (>= 5.0)
   rails_settlement!
   rake (~> 13.0)
   rspec-rails
