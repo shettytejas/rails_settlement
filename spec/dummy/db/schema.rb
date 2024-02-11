@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 20_240_210_192_802) do
   create_table "users", force: :cascade do |t|
     t.string "username"
     t.string "name"
+    t.boolean "is_active"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

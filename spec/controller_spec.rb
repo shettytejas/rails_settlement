@@ -19,7 +19,7 @@ RSpec.describe DefaultController, type: :controller do
 end
 
 RSpec.describe OverrideController, type: :controller do
-  describe "when set_user method is called in controller and it finds the user" do
+  describe "when set_user method is called in controller and it doesnt finds the user" do
     it "fails silently" do
       get :show, params: { user_name: "admin" }
 
@@ -32,6 +32,24 @@ RSpec.describe OverrideController, type: :controller do
       get :edit, params: { user_name: "Admin User" }
 
       expect(response.body).to eq("Admin User")
+    end
+  end
+end
+
+RSpec.describe ScopedController, type: :controller do
+  describe "when set_user method is called in controller with scope as string/symbol and it finds the user" do
+    it "returns the correct user", :focus do
+      get :show, params: { name: "Normal User" }
+
+      expect(response.body).to eq("user2")
+    end
+  end
+
+  describe "when set_user! method is called in controller with array of string/symbol and it finds the user" do
+    it "returns the correct user" do
+      get :edit, params: { name: "Normal User" }
+
+      expect(response.body).to eq("user2")
     end
   end
 end
