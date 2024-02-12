@@ -53,3 +53,5 @@ RSpec.describe ScopedController, type: :controller do
     end
   end
 end
+
+RSpec.describe NamespacedController, type: :controller do; end
