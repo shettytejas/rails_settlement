@@ -54,4 +54,20 @@ RSpec.describe ScopedController, type: :controller do
   end
 end
 
-RSpec.describe NamespacedController, type: :controller do; end
+RSpec.describe NamespacedController, type: :controller do
+  describe "when set_user method is called in controller with name as string/symbol and it finds the Namespaced::User" do
+    it "returns the correct user" do
+      get :show, params: { name: "Test User" }
+
+      expect(response.body).to eq("test_user2")
+    end
+  end
+
+  describe "when set_user! method is called in controller with array of string/symbol and it finds the Namespaced::User" do
+    it "returns the correct user" do
+      get :edit, params: { name: "Test User" }
+
+      expect(response.body).to eq("test_user2")
+    end
+  end
+end

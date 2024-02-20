@@ -4,6 +4,6 @@ class Namespaced::User < Namespaced # rubocop:disable Style/ClassAndModuleChildr
   scope :is_admin, -> { where(is_admin: true) }
 
   def self.settable_params
-    # TODO: Complete this!
+    { params_key: :name, model_key: :name }
   end
 end
