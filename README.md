@@ -25,6 +25,12 @@ class UsersController < ApplicationController
   # set_user scope_to: :is_active, only: %i[show] #=> User.is_active.find_by
   # set_user! scope_to: %i[is_active is_admin] #=> User.is_active.is_admin.find_by
 
+  # You can also set a namespace for the model with the `namespace` option. It can be a string or a symbol.
+  # Suppose you have a model 'Admin::User', you can define:
+  # set_user namespace: :admin, ...
+  # If you have a model that's nested more than once, like 'Admin::Account::User', you can define as:
+  # set_user namespace: 'admin/account', ...
+
   def show
     do_something with: user # You also have an attribute reader with the same name available if the object is found. If not, it defaults to nil (unless a bang method is used, in which case an error is raised!)
   end
@@ -46,7 +52,5 @@ end
 ```
 
 This approach allows you to use any model instead of a `User`. Just follow the naming convention set_[model_name_in_snake_case]!.
-
-Note: This implementation does not support STI or any Namespaced models. If you have a solution to make them work, please submit a pull request!
 
 That's about it!
