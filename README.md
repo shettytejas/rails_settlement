@@ -31,6 +31,10 @@ class UsersController < ApplicationController
   # If you have a model that's nested more than once, like 'Admin::Account::User', you can define as:
   # set_user namespace: 'admin/account', ...
 
+  # If you want to search an object's relationship, you can use the `associated_to` option.
+  # set_articles! associated_to: :user, ... # => Article.where(user => user)
+  # set_articles! associated_to: :user, scope_to: :published # => Article.published.where(user => user).find_by
+
   def show
     do_something with: user # You also have an attribute reader with the same name available if the object is found. If not, it defaults to nil (unless a bang method is used, in which case an error is raised!)
   end
