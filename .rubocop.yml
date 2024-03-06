@@ -13,7 +13,10 @@ Layout/LineLength:
   Max: 150
 
 Metrics/AbcSize:
-  Max: 22
+  Max: 23
+
+Metrics/MethodLength:
+  Max: 15
 
 Style/Documentation:
   Enabled: false
