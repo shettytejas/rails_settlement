@@ -21,9 +21,9 @@ module RailsSettlement
       associated_to = _rs_handle_associated_to(options: options)
 
       before_action(**options) do
-        scoped_klass = _rs_associated_scope(scoped_relation: scoped_klass, associated_to: associated_to)
+        query = _rs_associated_scope(scoped_relation: scoped_klass, associated_to: associated_to)
 
-        instance_variable_set("@#{variable}", scoped_klass.find_by(param_options[:model_key] => params[param_options[:params_key]]))
+        instance_variable_set("@#{variable}", query.find_by(param_options[:model_key] => params[param_options[:params_key]]))
         raise ActiveRecord::RecordNotFound if raisable && instance_variable_get("@#{variable}").nil?
       end
 
