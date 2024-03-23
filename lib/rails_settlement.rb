@@ -69,7 +69,7 @@ module RailsSettlement
   def _rs_associated_scope(scoped_relation:, associated_to: nil)
     return scoped_relation if associated_to.blank?
 
-    scoped_relation.where(associated_to => public_send(associated_to))
+    scoped_relation.joins(associated_to).where(associated_to => public_send(associated_to))
   end
 end
 
