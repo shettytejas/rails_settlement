@@ -15,7 +15,7 @@ module RailsSettlement
       super unless (matches = method.to_s.match(SETTABLE_REGEX))
 
       variable, raisable = _rs_handle_match_data(matches)
-      klass = _rs_klass(variable, **options.extract!(:namespace))
+      klass = _rs_klass(variable, **options.slice(:namespace))
       param_options = _rs_param_options(klass: klass, options: options)
       scoped_klass = _rs_handle_scopes(klass: klass, scopes: param_options[:scope_to])
       associated_to = _rs_handle_associated_to(options: options)
@@ -24,7 +24,7 @@ module RailsSettlement
         query = _rs_associated_scope(scoped_relation: scoped_klass, associated_to: associated_to)
 
         instance_variable_set("@#{variable}", query.find_by(param_options[:model_key] => params[param_options[:params_key]]))
-        raise ActiveRecord::RecordNotFound if raisable && instance_variable_get("@#{variable}").nil?
+        _rs_raise_record_not_found!(klass: klass, key: param_options[:model_key], id: params[param_options[:params_key]]) if raisable && instance_variable_get("@#{variable}").nil?
       end
 
       attr_reader variable
@@ -47,7 +47,7 @@ module RailsSettlement
     end
 
     def _rs_param_options(klass:, options:)
-      (klass.try(:settable_params) || {}).merge(options.extract!(:model_key, :params_key, :scope_to))
+      (klass.try(:settable_params) || {}).merge(options.slice(:model_key, :params_key, :scope_to))
     end
 
     def _rs_handle_scopes(klass:, scopes:)
@@ -70,6 +70,10 @@ module RailsSettlement
     return scoped_relation if associated_to.blank?
 
     scoped_relation.joins(associated_to).where(associated_to => public_send(associated_to))
+  end
+
+  def _rs_raise_record_not_found!(klass:, key:, id:)
+    raise ActiveRecord::RecordNotFound.new("Couldn't find #{klass} with '#{key}'='#{id}'", klass.name, key, Array.wrap(id))
   end
 end
 
